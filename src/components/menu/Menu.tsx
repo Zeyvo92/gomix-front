@@ -1,6 +1,6 @@
-import "./Menu.css";
+import './Menu.css';
 
-import * as React from "react";
+import * as React from 'react';
 import {
   Collapse,
   Nav,
@@ -8,7 +8,7 @@ import {
   NavbarBrand,
   NavItem,
   NavLink
-} from "reactstrap";
+} from 'reactstrap';
 
 class Menu extends React.Component {
   public render() {

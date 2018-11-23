@@ -1,26 +1,50 @@
-import "./Home.css";
+import './Home.css';
 
-import * as React from "react";
-import { CardColumns } from "reactstrap";
-import Menu from "./Menu/Menu";
-import TopicCard from "./TopicCard/TopicCard";
+import * as React from 'react';
+import { CardColumns } from 'reactstrap';
+import TopicCard from './TopicCard/TopicCard';
 
-class Home extends React.Component {
+import { connect } from 'react-redux';
+import { selectTopic } from '../../redux/actions/Topic';
+
+interface Props {
+  topic: any[];
+  selectTopic: Function;
+}
+
+class Home extends React.Component<Props> {
+  createTopicCards = () => {
+    return this.props.topic.map(topic => (
+      <TopicCard
+        onMore={() => {
+          this.props.selectTopic(topic.id);
+          // @ts-ignore
+          this.props.history.push('/topic');
+        }}
+      />
+    ));
+  };
+
   public render(): React.ReactNode {
     return (
       <div className="Home">
-        <Menu />
         <CardColumns className="dashboard">
-          <TopicCard />
-          <TopicCard />
-          <TopicCard />
-          <TopicCard />
-          <TopicCard />
-          <TopicCard />
+          {this.createTopicCards()}
         </CardColumns>
       </div>
     );
   }
 }
 
-export default Home;
+const mapStateToProps = (state: any) => ({
+  topic: state.topic.topics
+});
+
+const mapDispatchToProps = {
+  selectTopic
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home);

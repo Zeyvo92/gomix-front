@@ -1,5 +1,8 @@
 {
-  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "extends": ["tslint-config-airbnb", "tslint-config-prettier"],
+  "rules": {
+    "trailing-coma": false
+  },
   "linterOptions": {
     "exclude": [
       "config/**/*.js",

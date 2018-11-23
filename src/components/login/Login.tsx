@@ -1,7 +1,7 @@
-import "./Login.css";
+import './Login.css';
 
-import * as React from "react";
-import { Button, Col, Container, FormGroup, Input, Row } from "reactstrap";
+import * as React from 'react';
+import { Button, Col, Container, FormGroup, Input, Row } from 'reactstrap';
 
 class Login extends React.Component {
   public render(): React.ReactNode {
@@ -32,7 +32,7 @@ class Login extends React.Component {
           </Row>
           <Row>
             <Col sm={{ size: 8, order: 2, offset: 2 }}>
-              <Button size="lg" block={true}>
+              <Button size="lg" color="info" block={true}>
                 Sign in
               </Button>
             </Col>
