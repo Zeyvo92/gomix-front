@@ -15,7 +15,7 @@ class Signup extends React.Component {
   }
 
   handleSubmit(event) {
-    fetch('https://localhost:3000/user/create', {
+    fetch('http://localhost:8000/user/create', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
