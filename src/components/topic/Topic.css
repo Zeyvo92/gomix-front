@@ -1,3 +1,10 @@
 .topic {
+  width: 85%;
+  margin: auto;
   margin-top: 35px;
+}
+
+.topic-subject,
+.topic-response {
+  width: 100%;
 }

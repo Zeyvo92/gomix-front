@@ -1,31 +1,33 @@
-import './Topic.css';
-
-import * as React from 'react';
+import React from 'react';
+import { observer } from 'mobx-react';
 import { Container, Row, Jumbotron, Button, Badge } from 'reactstrap';
-import { connect } from 'react-redux';
+
+import './topic.css';
 
 class Topic extends React.Component {
-  public render() {
-    console.log(this.props);
+  static propTypes = {
+    store: Function,
+  }.isRequired;
+
+  constructor(props) {
+    super(props);
+    console.log('bonjour');
+  }
+
+  render() {
+    const { store } = this.props;
     return (
       <div className="topic">
         <Container>
           <Row>
-            <Jumbotron>
-              <h1 className="display-3">Backend Developer</h1>
-              <p className="lead">
-                This is a simple hero unit, a simple Jumbotron-style component
-                for calling extra attention to featured content or information.
-                This is a simple hero unit, a simple Jumbotron-style component
-                for calling extra attention to featured content or information.
-                This is a simple hero unit, a simple Jumbotron-style component
-                for calling extra attention to featured content or information.
-              </p>
+            <Jumbotron className="topic-subject">
+              <h1 className="display-3">{store.currentTopic.title}</h1>
+              <p className="lead">{store.currentTopic.desc}</p>
               <hr className="my-2" />
               <p className="lead">
                 <Badge color="info" pill>
                   Javascript
-                </Badge>{' '}
+                </Badge>
                 <Badge color="info" pill>
                   Node.js
                 </Badge>
@@ -33,7 +35,7 @@ class Topic extends React.Component {
             </Jumbotron>
           </Row>
           <Row>
-            <Jumbotron>
+            <Jumbotron className="topic-response">
               <h1 className="display-3">Backend Developer</h1>
               <p className="lead">
                 This is a simple hero unit, a simple Jumbotron-style component
@@ -55,8 +57,4 @@ class Topic extends React.Component {
   }
 }
 
-const mapStateToProps = (state: any) => ({
-  topic: state.topic.selectedTopic
-});
-
-export default connect(mapStateToProps)(Topic);
+export default observer(Topic);
