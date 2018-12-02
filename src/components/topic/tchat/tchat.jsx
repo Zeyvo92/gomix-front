@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { observer, inject } from 'mobx-react';
 import { Button, Jumbotron, Form, FormGroup, Input } from 'reactstrap';
 import socketIoClient from 'socket.io-client';
 
-import topicStore from '../../../stores/topicStore';
+import * as topicst from '../../../stores/topicStore';
 import './tchat.css';
 
 class Tchat extends React.Component {
   static propTypes = {
-    store: PropTypes.instanceOf(topicStore).isRequired,
+    topicStore: PropTypes.instanceOf(topicst).isRequired,
   };
 
   constructor(props) {
@@ -22,8 +23,8 @@ class Tchat extends React.Component {
   }
 
   componentDidMount() {
-    const { store } = this.props;
-    this.socket.emit('joinTopic', { topicId: store.currentTopic._id });
+    const { topicStore } = this.props;
+    this.socket.emit('joinTopic', { topicId: topicStore.currentTopic._id });
     this.socket.on('messageHistory', data => {
       console.log(data);
     });
@@ -37,12 +38,12 @@ class Tchat extends React.Component {
   };
 
   handleSend = event => {
-    const { store } = this.props;
+    const { topicStore } = this.props;
     const { message } = this.state;
     this.socket.emit('message', {
-      userId: 1,
-      topicId: store.currentTopic._id,
-      text: message,
+      userId: '5c032cb64c9a0b1656cfe128',
+      topicId: topicStore.currentTopic._id,
+      msg: message,
     });
     this.setState({ message: '' });
     event.preventDefault();
@@ -70,4 +71,4 @@ class Tchat extends React.Component {
   }
 }
 
-export default Tchat;
+export default inject('topicStore')(observer(Tchat));

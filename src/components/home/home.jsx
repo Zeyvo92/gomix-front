@@ -1,26 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CardColumns, Button } from 'reactstrap';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 
 import TopicCards from './topicCard/topicCard';
-import topicStore from '../../stores/topicStore';
+import * as topicst from '../../stores/topicStore';
 
 import './home.css';
 
 class Home extends React.Component {
   static propTypes = {
-    store: PropTypes.instanceOf(topicStore).isRequired,
+    topicStore: PropTypes.instanceOf(topicst).isRequired,
   };
 
   componentDidMount() {
-    const { store } = this.props;
-    store.fetchTopic();
+    const { topicStore } = this.props;
+    topicStore.fetchTopic();
   }
 
   createTopicCards = () => {
-    const { store } = this.props;
-    return store.topics.map(topic => (
+    const { topicStore } = this.props;
+    return topicStore.topics.map(topic => (
       <TopicCards store={topicStore} topicInfo={topic} />
     ));
   };
@@ -44,4 +44,4 @@ class Home extends React.Component {
   }
 }
 
-export default observer(Home);
+export default inject('topicStore')(observer(Home));

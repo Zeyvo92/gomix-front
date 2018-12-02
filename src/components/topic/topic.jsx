@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import { Container, Row, Jumbotron, Badge } from 'reactstrap';
 
-import topicStore from '../../stores/topicStore';
+import * as topicst from '../../stores/topicStore';
 import Tchat from './tchat/tchat';
 
 import './topic.css';
 
 class Topic extends React.Component {
   static propTypes = {
-    store: PropTypes.instanceOf(topicStore).isRequired,
+    topicStore: PropTypes.instanceOf(topicst).isRequired,
   };
 
   constructor(props) {
@@ -19,14 +19,14 @@ class Topic extends React.Component {
   }
 
   render() {
-    const { store } = this.props;
+    const { topicStore } = this.props;
     return (
       <div className="topic">
         <Container>
           <Row>
             <Jumbotron className="topic-subject">
-              <h1 className="display-3">{store.currentTopic.title}</h1>
-              <p className="lead">{store.currentTopic.description}</p>
+              <h1 className="display-3">{topicStore.currentTopic.title}</h1>
+              <p className="lead">{topicStore.currentTopic.description}</p>
               <hr className="my-2" />
               <p className="lead">
                 <Badge color="info" pill>
@@ -39,7 +39,7 @@ class Topic extends React.Component {
             </Jumbotron>
           </Row>
           <Row>
-            <Tchat store={store} />
+            <Tchat /* store={topicStore} */ />
           </Row>
         </Container>
       </div>
@@ -47,4 +47,4 @@ class Topic extends React.Component {
   }
 }
 
-export default observer(Topic);
+export default inject('topicStore')(observer(Topic));
