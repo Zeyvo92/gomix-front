@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import {
   Button,
   Col,
@@ -14,7 +14,7 @@ import './login.css';
 
 class Login extends React.Component {
   static propTypes = {
-    store: PropTypes.instanceOf(Login).isRequired,
+    history: ReactRouterPropTypes.history.isRequired,
   };
 
   constructor(props) {
@@ -31,6 +31,7 @@ class Login extends React.Component {
 
   handleSubmit = event => {
     const { history } = this.props;
+    const { email, password } = this.state;
     fetch('http://localhost:8000/user/login', {
       method: 'POST',
       headers: {
@@ -38,21 +39,22 @@ class Login extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        email: this.state.email,
-        password: this.state.password,
+        email,
+        password,
       }),
-    }).then(response => {
-      if (response.status === 200) history.push('/');
-      else if (response.status === 401) {
-        alert('Wrong email or password.');
-      } else if (response.status === 400) {
-        alert('All fields required.');
-      }
-    });
+    })
+      .then(response => {
+        if (response.status === 200) history.push('/');
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+      });
     event.preventDefault();
   };
 
   render() {
+    const { email, password } = this.state;
     return (
       <div className="login">
         <Form>
@@ -65,7 +67,7 @@ class Login extends React.Component {
                     name="email"
                     id="exampleEmail"
                     placeholder="Email"
-                    value={this.state.email}
+                    value={email}
                     onChange={this.handleChange}
                   />
                 </FormGroup>
@@ -77,7 +79,7 @@ class Login extends React.Component {
                     name="password"
                     id="examplePassword"
                     placeholder="Password"
-                    value={this.state.password}
+                    value={password}
                     onChange={this.handleChange}
                   />
                 </FormGroup>

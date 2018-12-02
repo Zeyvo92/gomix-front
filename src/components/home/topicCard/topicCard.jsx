@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
 
 import {
   Badge,
@@ -13,17 +14,24 @@ import {
 
 import { observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
-import TopicStore from '../../../stores/topicStore';
+import topicStore from '../../../stores/topicStore';
+
+import TopicTechno from '../../../assets/TopicTechno.png';
 
 class TopicCard extends React.Component {
   static propTypes = {
-    store: PropTypes.instanceOf(TopicStore).isRequired,
-    topicInfo: PropTypes.object.isRequired,
+    store: PropTypes.instanceOf(topicStore).isRequired,
+    history: ReactRouterPropTypes.history.isRequired,
+    topicInfo: PropTypes.shape({
+      _id: String,
+      title: String,
+      description: String,
+    }).isRequired,
   };
 
   onMoreClick = () => {
     const { store, topicInfo, history } = this.props;
-    store.selectTopic(topicInfo.id);
+    store.selectTopic(topicInfo._id);
     history.push('/topic');
   };
 
@@ -31,23 +39,18 @@ class TopicCard extends React.Component {
     const { topicInfo } = this.props;
     return (
       <Card className="topic-card">
-        <CardImg
-          top
-          width="100%"
-          src="https://placeholdit.imgix.net/~text?txtsize=33&txt=Placeholder&w=256&h=180"
-          alt="Card image cap"
-        />
+        <CardImg top width="100%" src={TopicTechno} alt="Card image cap" />
         <CardBody>
           <CardTitle>
             {topicInfo.title}
-            <Badge color="info" pill>
+            <Badge color="light" pill>
               Javascript
             </Badge>
-            <Badge color="info" pill>
+            <Badge color="light" pill>
               Node.js
             </Badge>
           </CardTitle>
-          <CardText>{topicInfo.desc}</CardText>
+          <CardText>{topicInfo.description}</CardText>
           <Button color="danger" onClick={this.onMoreClick}>
             More..
           </Button>

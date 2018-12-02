@@ -1,0 +1,8 @@
+.topic-create-panel {
+  margin-top: 35px;
+  width: 100%;
+}
+
+#description-input {
+  min-height: 200px;
+}

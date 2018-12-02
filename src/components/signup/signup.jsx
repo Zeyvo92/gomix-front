@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import {
   Button,
   Col,
@@ -12,7 +12,7 @@ import {
 
 class Signup extends React.Component {
   static propTypes = {
-    store: PropTypes.instanceOf(Signup).isRequired,
+    history: ReactRouterPropTypes.history.isRequired,
   };
 
   constructor(props) {
@@ -29,6 +29,7 @@ class Signup extends React.Component {
 
   handleSubmit = event => {
     const { history } = this.props;
+    const { email, password } = this.state;
     fetch('http://localhost:8000/user/create', {
       method: 'POST',
       headers: {
@@ -36,19 +37,17 @@ class Signup extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        email: this.state.email,
-        password: this.state.password,
+        email,
+        password,
       }),
     }).then(response => {
       if (response.status === 201) history.push('/');
-      else {
-        alert('Account not created !');
-      }
     });
     event.preventDefault();
   };
 
   render() {
+    const { email, password } = this.state;
     return (
       <div className="login">
         <Form>
@@ -61,7 +60,7 @@ class Signup extends React.Component {
                     name="email"
                     id="exampleEmail"
                     placeholder="Email"
-                    value={this.state.email}
+                    value={email}
                     onChange={this.handleChange}
                   />
                 </FormGroup>
@@ -73,7 +72,7 @@ class Signup extends React.Component {
                     name="password"
                     id="examplePassword"
                     placeholder="Password"
-                    value={this.state.password}
+                    value={password}
                     onChange={this.handleChange}
                   />
                 </FormGroup>

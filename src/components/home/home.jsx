@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CardColumns } from 'reactstrap';
+import { CardColumns, Button } from 'reactstrap';
 import { observer } from 'mobx-react';
 
 import TopicCards from './topicCard/topicCard';
 import topicStore from '../../stores/topicStore';
-import TopicStore from '../../stores/topicStore';
 
 import './home.css';
 
 class Home extends React.Component {
   static propTypes = {
-    store: PropTypes.instanceOf(TopicStore).isRequired,
+    store: PropTypes.instanceOf(topicStore).isRequired,
   };
 
   createTopicCards = () => {
@@ -25,6 +24,14 @@ class Home extends React.Component {
   render() {
     return (
       <div className="home">
+        <Button
+          href="/createtopic"
+          className="create-topic-button"
+          color="info"
+          block
+        >
+          Create a new Topic !
+        </Button>
         <CardColumns className="dashboard">
           {this.createTopicCards()}
         </CardColumns>

@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { Container, Row, Jumbotron, Badge } from 'reactstrap';
 
-import TopicStore from '../../stores/topicStore';
+import topicStore from '../../stores/topicStore';
 import Tchat from './tchat/tchat';
 
 import './topic.css';
 
 class Topic extends React.Component {
   static propTypes = {
-    store: PropTypes.instanceOf(TopicStore).isRequired,
+    store: PropTypes.instanceOf(topicStore).isRequired,
   };
 
   constructor(props) {
@@ -26,7 +26,7 @@ class Topic extends React.Component {
           <Row>
             <Jumbotron className="topic-subject">
               <h1 className="display-3">{store.currentTopic.title}</h1>
-              <p className="lead">{store.currentTopic.desc}</p>
+              <p className="lead">{store.currentTopic.description}</p>
               <hr className="my-2" />
               <p className="lead">
                 <Badge color="info" pill>
