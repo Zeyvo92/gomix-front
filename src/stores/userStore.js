@@ -1,6 +1,6 @@
 import { observable, decorate } from 'mobx';
 
-class UserStore {
+export class UserStore {
   currentUser = null;
 
   setCurrentUser(user) {

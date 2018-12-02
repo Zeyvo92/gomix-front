@@ -1,6 +1,6 @@
 import { observable, decorate } from 'mobx';
 
-class MessageStore {
+export class MessageStore {
   messages = [];
 
   addMessage(message) {

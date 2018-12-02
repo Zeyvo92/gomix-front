@@ -4,8 +4,8 @@ import { observer, inject } from 'mobx-react';
 import { Button, Jumbotron, Form, FormGroup, Input } from 'reactstrap';
 import socketIoClient from 'socket.io-client';
 
-import * as topicst from '../../../stores/topicStore';
-import * as messagest from '../../../stores/messageStore';
+import { TopicStore } from '../../../stores/topicStore';
+import { MessageStore } from '../../../stores/messageStore';
 
 import MessageTemplate from './messageTemplate/messageTemplate';
 
@@ -13,8 +13,8 @@ import './tchat.css';
 
 class Tchat extends React.Component {
   static propTypes = {
-    topicStore: PropTypes.instanceOf(topicst).isRequired,
-    messageStore: PropTypes.instanceOf(messagest).isRequired,
+    topicStore: PropTypes.instanceOf(TopicStore).isRequired,
+    messageStore: PropTypes.instanceOf(MessageStore).isRequired,
   };
 
   constructor(props) {

@@ -14,13 +14,13 @@ import {
 
 import { observer, inject } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
-import * as topicst from '../../../stores/topicStore';
+import { TopicStore } from '../../../stores/topicStore';
 
 import TopicTechno from '../../../assets/TopicTechno.png';
 
 class TopicCard extends React.Component {
   static propTypes = {
-    topicStore: PropTypes.instanceOf(topicst).isRequired,
+    topicStore: PropTypes.instanceOf(TopicStore).isRequired,
     history: ReactRouterPropTypes.history.isRequired,
     topicInfo: PropTypes.shape({
       _id: String,

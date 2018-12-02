@@ -1,6 +1,6 @@
 import { observable, decorate } from 'mobx';
 
-class TopicStore {
+export class TopicStore {
   topics = [];
 
   currentTopic = null;

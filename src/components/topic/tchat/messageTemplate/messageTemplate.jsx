@@ -9,21 +9,28 @@ class MessageTemplate extends React.Component {
     msgInfo: PropTypes.shape({
       _id: String,
       text: String,
-      date: Date,
     }).isRequired,
   };
 
   constructor(props) {
     super(props);
-    console.log('bonjour');
+    console.log('');
   }
 
   render() {
     const { msgInfo } = this.props;
+
+    let color;
+    if (msgInfo.userId === sessionStorage.getItem('userId')) {
+      color = 'info';
+    } else {
+      color = 'success';
+    }
+
     return (
       <Container className="message-row">
         <Row>
-          <Badge color="info" pill>
+          <Badge color={color} pill>
             {msgInfo.text}
           </Badge>
         </Row>

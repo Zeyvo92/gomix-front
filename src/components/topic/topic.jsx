@@ -3,19 +3,19 @@ import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
 import { Container, Row, Jumbotron, Badge } from 'reactstrap';
 
-import * as topicst from '../../stores/topicStore';
+import { TopicStore } from '../../stores/topicStore';
 import Tchat from './tchat/tchat';
 
 import './topic.css';
 
 class Topic extends React.Component {
   static propTypes = {
-    topicStore: PropTypes.instanceOf(topicst).isRequired,
+    topicStore: PropTypes.instanceOf(TopicStore).isRequired,
   };
 
   constructor(props) {
     super(props);
-    console.log('bonjour');
+    console.log('');
   }
 
   render() {

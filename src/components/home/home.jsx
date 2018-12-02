@@ -4,13 +4,13 @@ import { CardColumns, Button } from 'reactstrap';
 import { observer, inject } from 'mobx-react';
 
 import TopicCards from './topicCard/topicCard';
-import * as topicst from '../../stores/topicStore';
+import { TopicStore } from '../../stores/topicStore';
 
 import './home.css';
 
 class Home extends React.Component {
   static propTypes = {
-    topicStore: PropTypes.instanceOf(topicst).isRequired,
+    topicStore: PropTypes.instanceOf(TopicStore).isRequired,
   };
 
   componentDidMount() {
