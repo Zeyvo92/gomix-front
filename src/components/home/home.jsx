@@ -13,10 +13,14 @@ class Home extends React.Component {
     store: PropTypes.instanceOf(topicStore).isRequired,
   };
 
+  componentDidMount() {
+    const { store } = this.props;
+    store.fetchTopic();
+  }
+
   createTopicCards = () => {
     const { store } = this.props;
-    const topics = store.fetchTopic();
-    return topics.map(topic => (
+    return store.topics.map(topic => (
       <TopicCards store={topicStore} topicInfo={topic} />
     ));
   };

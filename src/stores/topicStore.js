@@ -21,7 +21,6 @@ export class TopicStore {
       .then(data => {
         this.topics = data;
       });
-    return this.topics;
   }
 
   selectTopic(id) {

@@ -41,15 +41,13 @@ class TopicCard extends React.Component {
       <Card className="topic-card">
         <CardImg top width="100%" src={TopicTechno} alt="Card image cap" />
         <CardBody>
-          <CardTitle>
-            {topicInfo.title}
-            <Badge color="light" pill>
-              Javascript
-            </Badge>
-            <Badge color="light" pill>
-              Node.js
-            </Badge>
-          </CardTitle>
+          <CardTitle>{topicInfo.title}</CardTitle>
+          <Badge color="primary" pill>
+            Javascript
+          </Badge>
+          <Badge color="primary" pill>
+            Node.js
+          </Badge>
           <CardText>{topicInfo.description}</CardText>
           <Button color="danger" onClick={this.onMoreClick}>
             More..
