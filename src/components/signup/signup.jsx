@@ -1,7 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Button, Col, Container, FormGroup, Input, Row } from 'reactstrap';
 
 class Signup extends React.Component {
+  static propTypes = {
+    store: PropTypes.instanceOf(Signup).isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.state = { email: '', password: '' };
@@ -15,6 +20,7 @@ class Signup extends React.Component {
   }
 
   handleSubmit(event) {
+    const { history } = this.props;
     fetch('http://localhost:8000/user/create', {
       method: 'POST',
       headers: {
@@ -25,6 +31,11 @@ class Signup extends React.Component {
         email: this.state.email,
         password: this.state.password,
       }),
+    }).then(response => {
+      if (response.status === 201) history.push('/');
+      else {
+        alert('Account not created !');
+      }
     });
     event.preventDefault();
   }

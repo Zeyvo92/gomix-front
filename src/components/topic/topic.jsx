@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { Container, Row, Jumbotron, Button, Badge } from 'reactstrap';
 
@@ -6,8 +7,8 @@ import './topic.css';
 
 class Topic extends React.Component {
   static propTypes = {
-    store: Function,
-  }.isRequired;
+    store: PropTypes.instanceOf(Topic).isRequired,
+  };
 
   constructor(props) {
     super(props);

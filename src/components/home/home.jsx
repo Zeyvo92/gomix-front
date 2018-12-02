@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { CardColumns } from 'reactstrap';
 import { observer } from 'mobx-react';
 
@@ -9,8 +10,8 @@ import './home.css';
 
 class Home extends React.Component {
   static propTypes = {
-    store: Function,
-  }.isRequired;
+    store: PropTypes.instanceOf(Home).isRequired,
+  };
 
   createTopicCards = () => {
     const { store } = this.props;

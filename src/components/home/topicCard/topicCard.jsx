@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import {
   Badge,
@@ -15,9 +16,9 @@ import { withRouter } from 'react-router-dom';
 
 class TopicCard extends React.Component {
   static propTypes = {
-    store: Function,
-    topicInfo: Object,
-  }.isRequired;
+    store: PropTypes.instanceOf(TopicCard).isRequired,
+    topicInfo: PropTypes.object.isRequired,
+  };
 
   onMoreClick = () => {
     const { store, topicInfo, history } = this.props;
