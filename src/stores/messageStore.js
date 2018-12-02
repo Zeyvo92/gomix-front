@@ -3,9 +3,9 @@ import { observable, decorate } from 'mobx';
 class MessageStore {
   messages = [];
 
-  addMessage = message => {
+  addMessage(message) {
     this.messages.push(message);
-  };
+  }
 }
 
 decorate(MessageStore, {

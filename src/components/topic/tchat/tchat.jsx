@@ -5,11 +5,13 @@ import { Button, Jumbotron, Form, FormGroup, Input } from 'reactstrap';
 import socketIoClient from 'socket.io-client';
 
 import * as topicst from '../../../stores/topicStore';
+import * as messagest from '../../../stores/messageStore';
 import './tchat.css';
 
 class Tchat extends React.Component {
   static propTypes = {
     topicStore: PropTypes.instanceOf(topicst).isRequired,
+    messageStore: PropTypes.instanceOf(messagest).isRequired,
   };
 
   constructor(props) {
@@ -23,15 +25,25 @@ class Tchat extends React.Component {
   }
 
   componentDidMount() {
-    const { topicStore } = this.props;
+    const { topicStore, messageStore } = this.props;
     this.socket.emit('joinTopic', { topicId: topicStore.currentTopic._id });
     this.socket.on('messageHistory', data => {
       console.log(data);
     });
     this.socket.on('newMessage', data => {
-      console.log(data);
+      messageStore.addMessage(data);
     });
   }
+
+  componentWillUnmount() {
+    const { topicStore } = this.props;
+    this.socket.emit('leaveTopic', { topicId: topicStore.currentTopic._id });
+  }
+
+  createMessages = () => {
+    const { messageStore } = this.props;
+    return messageStore.messages.map(msg => <h1>{msg.msg}</h1>);
+  };
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -53,7 +65,7 @@ class Tchat extends React.Component {
     const { message } = this.state;
     return (
       <Jumbotron className="topic-response">
-        <div className="message-screen" />
+        <div className="message-screen">{this.createMessages()}</div>
         <Form>
           <FormGroup>
             <Input
@@ -71,4 +83,4 @@ class Tchat extends React.Component {
   }
 }
 
-export default inject('topicStore')(observer(Tchat));
+export default inject('topicStore', 'messageStore')(observer(Tchat));

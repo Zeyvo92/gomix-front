@@ -20,9 +20,7 @@ class Home extends React.Component {
 
   createTopicCards = () => {
     const { topicStore } = this.props;
-    return topicStore.topics.map(topic => (
-      <TopicCards store={topicStore} topicInfo={topic} />
-    ));
+    return topicStore.topics.map(topic => <TopicCards topicInfo={topic} />);
   };
 
   render() {

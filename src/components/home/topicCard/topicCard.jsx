@@ -12,15 +12,15 @@ import {
   CardTitle,
 } from 'reactstrap';
 
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
-import topicStore from '../../../stores/topicStore';
+import * as topicst from '../../../stores/topicStore';
 
 import TopicTechno from '../../../assets/TopicTechno.png';
 
 class TopicCard extends React.Component {
   static propTypes = {
-    store: PropTypes.instanceOf(topicStore).isRequired,
+    topicStore: PropTypes.instanceOf(topicst).isRequired,
     history: ReactRouterPropTypes.history.isRequired,
     topicInfo: PropTypes.shape({
       _id: String,
@@ -30,8 +30,8 @@ class TopicCard extends React.Component {
   };
 
   onMoreClick = () => {
-    const { store, topicInfo, history } = this.props;
-    store.selectTopic(topicInfo._id);
+    const { topicStore, topicInfo, history } = this.props;
+    topicStore.selectTopic(topicInfo._id);
     history.push('/topic');
   };
 
@@ -58,4 +58,4 @@ class TopicCard extends React.Component {
   }
 }
 
-export default withRouter(observer(TopicCard));
+export default withRouter(inject('topicStore')(observer(TopicCard)));
