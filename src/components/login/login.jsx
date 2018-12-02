@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import {
   Button,
@@ -9,12 +10,16 @@ import {
   Input,
   Row,
 } from 'reactstrap';
+import { observer, inject } from 'mobx-react';
+
+import * as userst from '../../stores/userStore';
 
 import './login.css';
 
 class Login extends React.Component {
   static propTypes = {
     history: ReactRouterPropTypes.history.isRequired,
+    userStore: PropTypes.instanceOf(userst).isRequired,
   };
 
   constructor(props) {
@@ -30,7 +35,7 @@ class Login extends React.Component {
   };
 
   handleSubmit = event => {
-    const { history } = this.props;
+    const { history, userStore } = this.props;
     const { email, password } = this.state;
     fetch('http://localhost:8000/user/login', {
       method: 'POST',
@@ -48,7 +53,7 @@ class Login extends React.Component {
         return response.json();
       })
       .then(data => {
-        console.log(data);
+        userStore.setCurrentUser(data.id);
       });
     event.preventDefault();
   };
@@ -114,4 +119,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default inject('userStore')(observer(Login));

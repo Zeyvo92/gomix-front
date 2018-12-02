@@ -4,6 +4,7 @@ import { Provider } from 'mobx-react';
 
 import topicStore from './stores/topicStore';
 import messageStore from './stores/messageStore';
+import userStore from './stores/userStore';
 
 import Menu from './components/menu/menu';
 import Home from './components/home/home';
@@ -12,7 +13,7 @@ import CreateTopic from './components/createTopic/createTopic';
 import Login from './components/login/login';
 import Signup from './components/signup/signup';
 
-const stores = { topicStore, messageStore };
+const stores = { topicStore, messageStore, userStore };
 
 const App = () => (
   <Provider {...stores}>

@@ -6,12 +6,17 @@ import socketIoClient from 'socket.io-client';
 
 import * as topicst from '../../../stores/topicStore';
 import * as messagest from '../../../stores/messageStore';
+import * as userst from '../../../stores/userStore';
+
+import MessageTemplate from './messageTemplate/messageTemplate';
+
 import './tchat.css';
 
 class Tchat extends React.Component {
   static propTypes = {
     topicStore: PropTypes.instanceOf(topicst).isRequired,
     messageStore: PropTypes.instanceOf(messagest).isRequired,
+    userStore: PropTypes.instanceOf(userst).isRequired,
   };
 
   constructor(props) {
@@ -28,7 +33,7 @@ class Tchat extends React.Component {
     const { topicStore, messageStore } = this.props;
     this.socket.emit('joinTopic', { topicId: topicStore.currentTopic._id });
     this.socket.on('messageHistory', data => {
-      console.log(data);
+      data.map(msg => messageStore.addMessage(msg));
     });
     this.socket.on('newMessage', data => {
       messageStore.addMessage(data);
@@ -42,7 +47,7 @@ class Tchat extends React.Component {
 
   createMessages = () => {
     const { messageStore } = this.props;
-    return messageStore.messages.map(msg => <h1>{msg.msg}</h1>);
+    return messageStore.messages.map(msg => <MessageTemplate msgInfo={msg} />);
   };
 
   handleChange = event => {
@@ -50,10 +55,10 @@ class Tchat extends React.Component {
   };
 
   handleSend = event => {
-    const { topicStore } = this.props;
+    const { topicStore, userStore } = this.props;
     const { message } = this.state;
     this.socket.emit('message', {
-      userId: '5c032cb64c9a0b1656cfe128',
+      userId: userStore.currentUser,
       topicId: topicStore.currentTopic._id,
       msg: message,
     });
@@ -83,4 +88,6 @@ class Tchat extends React.Component {
   }
 }
 
-export default inject('topicStore', 'messageStore')(observer(Tchat));
+export default inject('topicStore', 'messageStore', 'userStore')(
+  observer(Tchat),
+);
