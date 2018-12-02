@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { Container, Row, Jumbotron, Badge } from 'reactstrap';
-import socketIoClient from 'socket.io-client';
 
 import topicStore from '../../stores/topicStore';
 import Tchat from './tchat/tchat';
@@ -16,19 +15,7 @@ class Topic extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      endpoint: 'http://localhost:8000',
-    };
-  }
-
-  componentDidMount() {
-    const { store } = this.props;
-    const { endpoint } = this.state;
-    const socket = socketIoClient(endpoint);
-    socket.emit('joinTopic', { topicId: store.currentTopic._id });
-    socket.on('messageHistory', data => {
-      console.log(data);
-    });
+    console.log('bonjour');
   }
 
   render() {
@@ -52,7 +39,7 @@ class Topic extends React.Component {
             </Jumbotron>
           </Row>
           <Row>
-            <Tchat />
+            <Tchat store={store} />
           </Row>
         </Container>
       </div>
