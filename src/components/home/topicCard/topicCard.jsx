@@ -13,10 +13,11 @@ import {
 
 import { observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
+import TopicStore from '../../../stores/topicStore';
 
 class TopicCard extends React.Component {
   static propTypes = {
-    store: PropTypes.instanceOf(TopicCard).isRequired,
+    store: PropTypes.instanceOf(TopicStore).isRequired,
     topicInfo: PropTypes.object.isRequired,
   };
 

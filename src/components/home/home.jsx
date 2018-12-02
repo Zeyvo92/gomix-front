@@ -5,12 +5,13 @@ import { observer } from 'mobx-react';
 
 import TopicCards from './topicCard/topicCard';
 import topicStore from '../../stores/topicStore';
+import TopicStore from '../../stores/topicStore';
 
 import './home.css';
 
 class Home extends React.Component {
   static propTypes = {
-    store: PropTypes.instanceOf(Home).isRequired,
+    store: PropTypes.instanceOf(TopicStore).isRequired,
   };
 
   createTopicCards = () => {
