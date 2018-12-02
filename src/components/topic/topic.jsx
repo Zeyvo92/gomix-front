@@ -4,7 +4,6 @@ import { observer, inject } from 'mobx-react';
 import { Container, Row, Jumbotron, Badge } from 'reactstrap';
 
 import * as topicst from '../../stores/topicStore';
-import * as userst from '../../stores/userStore';
 import Tchat from './tchat/tchat';
 
 import './topic.css';
@@ -12,7 +11,6 @@ import './topic.css';
 class Topic extends React.Component {
   static propTypes = {
     topicStore: PropTypes.instanceOf(topicst).isRequired,
-    userStore: PropTypes.instanceOf(userst).isRequired,
   };
 
   constructor(props) {
@@ -21,11 +19,11 @@ class Topic extends React.Component {
   }
 
   render() {
-    const { topicStore, userStore } = this.props;
+    const { topicStore } = this.props;
 
-    let chat;
-    if (userStore.currentUser != null) {
-      chat = <Tchat />;
+    let tchat;
+    if (sessionStorage.getItem('userId') != null) {
+      tchat = <Tchat />;
     }
 
     return (
@@ -46,11 +44,11 @@ class Topic extends React.Component {
               </p>
             </Jumbotron>
           </Row>
-          <Row>{chat}</Row>
+          <Row>{tchat}</Row>
         </Container>
       </div>
     );
   }
 }
 
-export default inject('topicStore', 'userStore')(observer(Topic));
+export default inject('topicStore')(observer(Topic));

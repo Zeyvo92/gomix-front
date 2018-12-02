@@ -9,6 +9,8 @@ import {
   NavLink,
 } from 'reactstrap';
 
+import './menu.css';
+
 const Menu = () => (
   <div className="menu">
     <Navbar color="light" light expand="md">
@@ -19,7 +21,7 @@ const Menu = () => (
             <NavLink href="/">Home</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="/login">login</NavLink>
+            <NavLink href="/login">Login</NavLink>
           </NavItem>
         </Nav>
       </Collapse>
